@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGenWithAuth();
 // Load configuration from appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-// Configurar la autenticación JWT
+// Configurar la autenticaciï¿½n JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -43,7 +43,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Añadir los controladores
+// Add controllers
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<PlagiTracker.Data.DataAccess.DataContext>(opt =>
@@ -68,7 +68,12 @@ builder.Services.AddHangfire(config =>
     config.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
         .UseSimpleAssemblyNameTypeSerializer()
         .UseRecommendedSerializerSettings()
-        .UsePostgreSqlStorage(options => options.UseNpgsqlConnection(builder.Configuration.GetConnectionString("DatabaseConnection")));
+        .UsePostgreSqlStorage(
+            options => options.UseNpgsqlConnection(builder.Configuration.GetConnectionString("DatabaseConnection")),
+            new PostgreSqlStorageOptions
+            {
+                SchemaName = "plagi_tracker_hangfire"
+            });
 });
 
 builder.Services.AddHangfireServer();
@@ -102,9 +107,8 @@ app.MapHangfireDashboard();
 
 app.UseHttpsRedirection();
 
-// Habilitar autenticación y autorización
+// Enable authentication and authorization
 app.UseAuthentication();
-
 
 app.UseAuthorization();
 

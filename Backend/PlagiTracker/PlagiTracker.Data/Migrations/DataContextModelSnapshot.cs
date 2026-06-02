@@ -17,6 +17,7 @@ namespace PlagiTracker.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("plagi_tracker")
                 .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -67,7 +68,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("CourseId", "Title")
                         .IsUnique();
 
-                    b.ToTable("Assignments");
+                    b.ToTable("Assignments", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Class", b =>
@@ -106,7 +107,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("ExerciseId", "Name")
                         .IsUnique();
 
-                    b.ToTable("Classes");
+                    b.ToTable("Classes", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Code", b =>
@@ -141,7 +142,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("SubmissionId", "FileName")
                         .IsUnique();
 
-                    b.ToTable("Codes");
+                    b.ToTable("Codes", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Course", b =>
@@ -184,7 +185,7 @@ namespace PlagiTracker.Data.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Enrollment", b =>
@@ -211,7 +212,7 @@ namespace PlagiTracker.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Exercise", b =>
@@ -249,7 +250,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("AssignmentId", "Name")
                         .IsUnique();
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Method", b =>
@@ -291,7 +292,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("ClassId", "Type", "Name", "ParameterTypes")
                         .IsUnique();
 
-                    b.ToTable("Methods");
+                    b.ToTable("Methods", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Parameter", b =>
@@ -320,7 +321,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("MethodId", "Type", "Name")
                         .IsUnique();
 
-                    b.ToTable("Parameter");
+                    b.ToTable("Parameter", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Plagiarism", b =>
@@ -360,7 +361,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("Id", "CodeId", "Algorithm")
                         .IsUnique();
 
-                    b.ToTable("Plagiarisms");
+                    b.ToTable("Plagiarisms", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Submission", b =>
@@ -408,7 +409,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("StudentId", "AssignmentId", "Url")
                         .IsUnique();
 
-                    b.ToTable("Submissions");
+                    b.ToTable("Submissions", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.User", b =>
@@ -471,7 +472,7 @@ namespace PlagiTracker.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "plagi_tracker");
 
                     b.UseTptMappingStrategy();
                 });
@@ -480,14 +481,14 @@ namespace PlagiTracker.Data.Migrations
                 {
                     b.HasBaseType("PlagiTracker.Data.Entities.User");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Teacher", b =>
                 {
                     b.HasBaseType("PlagiTracker.Data.Entities.User");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers", "plagi_tracker");
                 });
 
             modelBuilder.Entity("PlagiTracker.Data.Entities.Assignment", b =>

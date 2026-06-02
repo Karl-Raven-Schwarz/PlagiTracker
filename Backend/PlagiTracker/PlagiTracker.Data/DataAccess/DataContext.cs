@@ -26,6 +26,8 @@ namespace PlagiTracker.Data.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.HasDefaultSchema("plagi_tracker");
+
             //Usuario
             //El email debe ser único
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
