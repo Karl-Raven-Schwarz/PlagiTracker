@@ -160,6 +160,14 @@ namespace PlagiTracker.Data.DataAccess
                     parameter.Name,
                 }).IsUnique();
             });
+
+            modelBuilder.Entity<Teacher>().HasData(SeedData.GetTeachers());
+            modelBuilder.Entity<Student>().HasData(SeedData.GetStudents());
+            modelBuilder.Entity<Course>().HasData(SeedData.GetCourses());
+            modelBuilder.Entity<Assignment>().HasData(SeedData.GetAssignments());
+            modelBuilder.Entity<Enrollment>().HasData(SeedData.GetEnrollments());
+            modelBuilder.Entity<Submission>().HasData(SeedData.GetSubmissions());
+            modelBuilder.Entity<Code>().HasData(SeedData.GetCodes());
         }
     }
 }
