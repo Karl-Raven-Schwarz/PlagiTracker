@@ -2,8 +2,8 @@
 import CryptoJS from 'crypto-js';
 
 // Accede a las variables de entorno
-const plagiTrackerSecretKey = CryptoJS.enc.Utf8.parse(process.env.PLAGITRACKER_ENCRYPT_KEY || ''); // 16 bytes para AES-128
-const plagiTrackerIV = CryptoJS.enc.Utf8.parse(process.env.PLAGITRACKER_IV || ''); // 16 bytes
+const plagiTrackerSecretKey = CryptoJS.enc.Utf8.parse(import.meta.env.VITE_ENCRYPT_KEY || ''); // 16 bytes para AES-128
+const plagiTrackerIV = CryptoJS.enc.Utf8.parse(import.meta.env.VITE_IV || ''); // 16 bytes
 
 // Función para cifrar texto
 export const encrypt = (text: string): any => {

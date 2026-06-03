@@ -25,10 +25,15 @@ coverage
 # Misplaced backend files
 *.cs
 
+# Generated OpenAPI client
+src/api-client/
+swagger.json
+
 /cypress/videos/
 /cypress/screenshots/
 
 # Editor directories and files
+.vscode/
 .vscode/*
 !.vscode/extensions.json
 .idea

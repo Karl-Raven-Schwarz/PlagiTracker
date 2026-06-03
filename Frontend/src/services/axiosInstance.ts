@@ -2,8 +2,7 @@ import axios from 'axios';
 import { useUserStore } from '@/stores/userStore'; // Import your Pinia store
 import router from '@/router/index';
 
-// Get the backend URL from environment variables
-const backendUrl = process.env.PLAGITRACKER_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 // Create an Axios instance
 const axiosInstance = axios.create({
