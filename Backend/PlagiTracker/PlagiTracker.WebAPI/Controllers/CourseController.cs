@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PlagiTracker.Data.DataAccess;
 using PlagiTracker.Data.Entities;
 using PlagiTracker.Data.Requests;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PlagiTracker.WebAPI.Controllers
 {
@@ -193,29 +194,48 @@ namespace PlagiTracker.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Obtiene todos los cursos del estudiante
+        /// Get all courses. Can be used by the student and the teacher. 
+        /// The archived parameter is used to filter the courses by their archived status. 
+        /// If archived is true, only archived courses will be returned. 
+        /// If archived is false, only non-archived courses will be returned.
         /// </summary>
-        /// <param name="archived"></param>
+        /// <param name="archived">Indicates whether to filter courses by their archived status.</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetAllByStudent")]
-        public async Task<ActionResult> GetAllByStudent(bool archived)
+        [Route("GetAll")]
+        public async Task<ActionResult<List<Course>>> GetAll(bool archived = false)
+        {
+            #region Token Verification
+
+            string? scopeClaim = User.FindFirst("Scope")?.Value;
+
+            var verifyTokenResult = VerifyToken(scopeClaim!);
+
+            if (scopeClaim == typeof(Student).Name)
+            {
+                return await GetAllForStudent(archived);
+            }
+            else if (scopeClaim == typeof(Teacher).Name)
+            {
+                return await GetAllForTeacher();
+            }
+            else
+            {
+                return Unauthorized(new
+                {
+                    Success = false,
+                    Message = verifyTokenResult.Message!
+                });
+            }
+
+            #endregion
+        }
+
+        private async Task<ActionResult> GetAllForStudent(bool archived = false)
         {
             try
             {
                 #region Token Verification
-                string? scopeClaim = User.FindFirst("Scope")?.Value;
-
-                // Verificar scope token
-                var verifyTokenResult = VerifyToken(scopeClaim!, typeof(Student).Name);
-                if (!verifyTokenResult.Success)
-                {
-                    return Unauthorized(new
-                    {
-                        Success = false,
-                        Message = verifyTokenResult.Message!
-                    });
-                }
 
                 Guid userIdClaim = Guid.Parse(User.FindFirst("Id")?.Value!);
                 var user = await _context!.Users!.FindAsync(userIdClaim);
@@ -300,29 +320,11 @@ namespace PlagiTracker.WebAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Obtiene todos los cursos del profesor
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("GetAllByTeacher")]
-        public async Task<ActionResult<List<Course>>> GetAllByTeacher()
+        private async Task<ActionResult<List<Course>>> GetAllForTeacher(bool archived = false)
         {
             try
             {
                 #region Token Verification
-                string? scopeClaim = User.FindFirst("Scope")?.Value;
-
-                // Verificar scope token
-                var verifyTokenResult = VerifyToken(scopeClaim!, typeof(Teacher).Name);
-                if (!verifyTokenResult.Success)
-                {
-                    return Unauthorized(new
-                    {
-                        Success = false,
-                        Message = verifyTokenResult.Message!
-                    });
-                }
 
                 Guid userIdClaim = Guid.Parse(User.FindFirst("Id")?.Value!);
                 var user = await _context!.Users!.FindAsync(userIdClaim);
@@ -348,7 +350,7 @@ namespace PlagiTracker.WebAPI.Controllers
                 #endregion
 
                 var courses = await _context!.Courses!
-                    .Where(c => c.TeacherId == userIdClaim && !c.IsArchived)
+                    .Where(c => c.TeacherId == userIdClaim && c.IsArchived == archived)
                     .ToListAsync();
 
                 // Verificar si no se encontraron cursos
@@ -379,84 +381,6 @@ namespace PlagiTracker.WebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Obtiene todos los cursos archivados del profesor
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("GetAllArchivedByTeacher")]
-        public async Task<ActionResult<List<Course>>> GetAllArchivedByTeacher()
-        {
-            try
-            {
-                #region Token Verification
-                string? scopeClaim = User.FindFirst("Scope")?.Value;
-
-                // Verificar scope token
-                var verifyTokenResult = VerifyToken(scopeClaim!, typeof(Teacher).Name);
-                if (!verifyTokenResult.Success)
-                {
-                    return Unauthorized(new
-                    {
-                        Success = false,
-                        Message = verifyTokenResult.Message!
-                    });
-                }
-
-                Guid userIdClaim = Guid.Parse(User.FindFirst("Id")?.Value!);
-                var user = await _context!.Users!.FindAsync(userIdClaim);
-
-                // Verificar si el id del token pertenece a un usuario
-                if (user == null)
-                {
-                    return Unauthorized(new
-                    {
-                        Success = false,
-                        Message = "Invalid token id"
-                    });
-                }
-                // Verificar si el usuario no está eliminado
-                else if (!user.IsEnabled)
-                {
-                    return Unauthorized(new
-                    {
-                        Success = false,
-                        Message = "Account is deleted"
-                    });
-                }
-                #endregion
-
-                var courses = await _context!.Courses!
-                    .Where(c => c.TeacherId == userIdClaim && c.IsArchived)
-                    .ToListAsync();
-
-                // Verificar si no se encontraron cursos
-                if (courses == null || courses.Count < 1)
-                {
-                    return NotFound(new
-                    {
-                        Success = false,
-                        Message = "No archived courses found"
-                    });
-                }
-
-                return Ok(new
-                {
-                    Success = true,
-                    Message = "Archived courses found",
-                    Data = courses
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new
-                {
-                    Success = false,
-                    Message = ex.InnerException?.Message ?? ex.Message
-                });
             }
         }
 

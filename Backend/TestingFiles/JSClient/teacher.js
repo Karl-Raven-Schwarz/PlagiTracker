@@ -148,7 +148,7 @@ async function deleteTeacher(token) {
     }
 }
 
-const email = 'daoblur.private@gmail.com';
+const email = 'lkennedy@plagitracker.com';
 const passwordHash = "XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=";
 
 login(email, passwordHash).then(data => {

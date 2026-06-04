@@ -11,6 +11,11 @@ namespace PlagiTracker.WebAPI.Extensions
             {
                 options.CustomSchemaIds(id => id.FullName!.Replace('+', '-'));
 
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+                options.EnableAnnotations(); // Ya tienes el paquete Swashbuckle.AspNetCore.Annotations
+
                 var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "JWT Authentication",

@@ -54,7 +54,7 @@ async function login(email, passwordHash) {
 }
 
 
-const email = 'kpachac@ulasalle.edu.pe';
+const email = 'studentsecond@plagitracker.com';
 const passwordHash = "XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=";
 
 login(email, passwordHash).then(data => {
@@ -62,11 +62,11 @@ login(email, passwordHash).then(data => {
     
     httpMethod
     (
-        `${URL_BASE}/Assignment/GetAllByCourseForStudent?courseId=`, 
+        `${URL_BASE}/Course/GetAllByStudent`, 
         'GET', 
         data.token, 
         false,
-        '5500125e-16f5-4b77-9220-cc4dab69c100',
+        '',
         'Assignment.GetAllByCourseForStudent'
     )
 

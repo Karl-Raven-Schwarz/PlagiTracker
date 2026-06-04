@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlagiTracker.Data;
 using PlagiTracker.Data.DataAccess;
+using PlagiTracker.Data.Entities;
 
 namespace PlagiTracker.WebAPI.Controllers
 {
@@ -10,6 +11,12 @@ namespace PlagiTracker.WebAPI.Controllers
     public abstract class CustomControllerBase : ControllerBase
     {
         protected readonly DataContext _context;
+
+        private readonly string[] scopeClassNames =
+        [
+            typeof(Student).Name,
+            typeof(Teacher).Name
+        ];
 
         public CustomControllerBase(DataContext context)
         {
@@ -35,6 +42,26 @@ namespace PlagiTracker.WebAPI.Controllers
                     return new(false, "Invalid scope token");
                 }
 
+                return new(true, "Token verified");
+            }
+            catch (Exception ex)
+            {
+                return new(false, $"{ex.Message}");
+            }
+        }
+
+        protected Result<NullableAttribute> VerifyToken(string scopeClaim)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(scopeClaim))
+                {
+                    return new(false, "Scope token is null or empty");
+                }
+                else if (!scopeClassNames.Contains(scopeClaim))
+                {
+                    return new(false, "Invalid scope token");
+                }
                 return new(true, "Token verified");
             }
             catch (Exception ex)
