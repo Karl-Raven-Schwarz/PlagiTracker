@@ -15,7 +15,7 @@ const apexOptions = {
     type: 'donut',
     width: 380
   },
-  colors: ['#3C50E0', '#6577F3', '#8FD0EF', '#0FADCF'],
+  colors: ['#1867C0', '#4B8BD4', '#8FD0EF', '#0FADCF'],
   labels: chartData.labels,
   legend: {
     show: false,
@@ -109,7 +109,7 @@ const apexOptions = {
       </div>
       <div class="w-full px-8 sm:w-1/2">
         <div class="flex w-full items-center">
-          <span class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#6577F3]"></span>
+          <span class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#4B8BD4]"></span>
           <p class="flex w-full justify-between text-sm font-medium text-black dark:text-white">
             <span> Tablet </span>
             <span> 34% </span>
