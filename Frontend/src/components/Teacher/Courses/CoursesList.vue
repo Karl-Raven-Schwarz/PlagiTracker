@@ -1,23 +1,21 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useCoursesStore } from '@/stores/coursesStore'; // Import the courses store
-import CourseCard from './CourseCard.vue'; // Make sure to import the CourseCard component
+import { useCoursesStore } from '@/stores/coursesStore';
+import CourseCard from './CourseCard.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-// Use the courses store
+
+const props = defineProps<{
+  archived?: boolean
+}>()
+
 const coursesStore = useCoursesStore();
 
-// Fetch courses function
 const fetchCourses = async () => {
-  await coursesStore.fetchCoursesByTeacher();
-
-
-
-  console.log(coursesStore.courses);
+  await coursesStore.fetchCoursesByTeacher(props.archived ?? false);
 };
 
-// Call fetchCoursesByTeacher when the component is mounted
 onMounted(() => {
-  fetchCourses(); // Load courses when the component mounts
+  fetchCourses();
 });
 </script>
 
@@ -32,7 +30,7 @@ onMounted(() => {
   </div>
 
   <!-- List of courses -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
     <!-- Iterate over the list of courses and show a CourseCard for each one -->
     <CourseCard
       v-for="course in coursesStore.courses"

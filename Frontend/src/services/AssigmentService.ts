@@ -1,189 +1,100 @@
-import type { Assignment } from '@/types/Assigment'
+import { AssignmentService as OpenAPIAssignmentService } from '@/api-client/services/AssignmentService'
+import { ApiError } from '@/api-client/core/ApiError'
 import axiosInstance from './axiosInstance'
 
-const API_ENDPOINT = '/Assignment'
-
 class AssignmentService {
-  /**
-   * Crea una nueva asignación en el sistema.
-   *
-   * @param {Omit<Assignment, 'id'>} assignment - Un objeto que contiene la información de la asignación que se va a crear.
-   * @returns {Promise<any>} - Una promesa que se resuelve con la respuesta del servidor en caso de éxito.
-   * @throws {Error} - Lanza un error si ocurre algún problema al crear la asignación.
-   */
-  static async createAssignment(assignment: Omit<Assignment, 'id'>): Promise<any> {
+  static async createAssignment(assignment: any): Promise<any> {
     try {
-      const response = await axiosInstance.post(`${API_ENDPOINT}/Create`, assignment)
-      return response.data
+      return await OpenAPIAssignmentService.postApiAssignmentCreate({ requestBody: assignment })
     } catch (error) {
-      console.error('Error creating assignment:', error)
-      throw error
+      throw AssignmentService.normalizeError(error)
     }
   }
 
-  /**
-   * Obtiene todas las asignaciones asociadas a un curso.
-   *
-   * @param {string} courseId - El ID del curso para el que se quieren obtener las asignaciones.
-   * @returns {Promise<Assignment[]>} - Una lista de asignaciones asociadas al curso.
-   * @throws {Error} - Lanza un error si ocurre algún problema al obtener las asignaciones.
-   */
-  static async getAssignmentsByCourse(courseId: string): Promise<Assignment[]> {
+  static async getAssignmentsByCourse(courseId: string): Promise<any> {
     try {
-      const response = await axiosInstance.get(`${API_ENDPOINT}/GetAllByCourse`, {
-        params: { courseId }
-      })
-      return response.data
+      return await OpenAPIAssignmentService.getApiAssignmentGetAllByCourseForStudent({ courseId })
     } catch (error) {
-      console.error('Error getting assignments by course:', error)
-      throw error
+      throw AssignmentService.normalizeError(error)
     }
   }
 
-  /**
-   * Actualiza una asignación existente.
-   *
-   * @param {Assignment} assignment - El objeto Assignment con los datos actualizados.
-   * @returns {Promise<any>} - La respuesta del servidor.
-   * @throws {Error} - Lanza un error si ocurre algún problema al actualizar la asignación.
-   */
-  static async updateAssignment(assignment: Assignment): Promise<any> {
+  static async getAssignmentsByCourseForTeacher(courseId: string): Promise<any> {
     try {
-      const response = await axiosInstance.put(`${API_ENDPOINT}/Update`, assignment)
-      return response.data
+      return await OpenAPIAssignmentService.getApiAssignmentGetAllByCourseForTeacher({ courseId })
     } catch (error) {
-      console.error('Error updating assignment:', error)
-      throw error
+      throw AssignmentService.normalizeError(error)
     }
   }
 
-  /**
-   * Elimina una asignación existente.
-   *
-   * @param {string} assignmentId - El ID de la asignación que se va a eliminar.
-   * @returns {Promise<any>} - La respuesta del servidor.
-   * @throws {Error} - Lanza un error si ocurre algún problema al eliminar la asignación.
-   */
+  static async getAllByCourseForStudent(studentId: string, courseId: string): Promise<any> {
+    try {
+      return await OpenAPIAssignmentService.getApiAssignmentGetAllByCourseForStudent({ courseId })
+    } catch (error) {
+      throw AssignmentService.normalizeError(error)
+    }
+  }
+
+  static async updateAssignment(assignment: any): Promise<any> {
+    try {
+      return await OpenAPIAssignmentService.putApiAssignmentUpdate({ requestBody: assignment })
+    } catch (error) {
+      throw AssignmentService.normalizeError(error)
+    }
+  }
+
   static async deleteAssignment(assignmentId: string): Promise<any> {
     try {
-      const response = await axiosInstance.delete(`${API_ENDPOINT}/Delete`, {
-        params: { id: assignmentId }
-      })
-      return response.data
+      return await OpenAPIAssignmentService.deleteApiAssignmentDelete({ id: assignmentId })
     } catch (error) {
-      console.error('Error deleting assignment:', error)
-      throw error
+      throw AssignmentService.normalizeError(error)
     }
   }
 
-  /**
-   * Obtiene una asignación por su ID.
-   *
-   * @param {string} assignmentId - El ID de la asignación que se va a obtener.
-   * @returns {Promise<Assignment>} - La asignación obtenida del servidor.
-   * @throws {Error} - Lanza un error si ocurre algún problema al obtener la asignación.
-   */
-  static async getAssignmentById(assignmentId: string): Promise<Assignment> {
+  static async getAssignmentById(assignmentId: string): Promise<any> {
     try {
-      const response = await axiosInstance.get(`${API_ENDPOINT}/GetById`, {
-        params: { id: assignmentId }
-      })
-      return response.data
+      return await OpenAPIAssignmentService.getApiAssignmentGetById({ id: assignmentId })
     } catch (error) {
-      console.error('Error getting assignment by ID:', error)
-      throw error
+      throw AssignmentService.normalizeError(error)
     }
   }
 
-  /**
-   * Analiza una asignación en el sistema y descarga el reporte en formato PDF.
-   *
-   * @param {string} assignmentId - El ID de la asignación a analizar.
-   * @returns {Promise<void>} - Descarga el archivo PDF del análisis.
-   * @throws {Error} - Lanza un error si ocurre algún problema al analizar la asignación.
-   */
-  static async analyzeAssignment(assignmentId: string): Promise<void> {
-    try {
-      // Configuramos Axios para manejar una respuesta binaria (el PDF)
-      const response = await axiosInstance.post(
-        `${API_ENDPOINT}/Analyze?assignmentId=${assignmentId}`,
-        {},
-        {
-          responseType: 'blob' // Indica que esperamos un archivo binario (PDF)
-        }
-      )
-
-      // Creamos un Blob con los datos del PDF
-      const pdfBlob = new Blob([response.data], { type: 'application/pdf' })
-
-      // Creamos una URL para el Blob y forzamos la descarga del archivo
-      const downloadUrl = window.URL.createObjectURL(pdfBlob)
-      const link = document.createElement('a')
-      link.href = downloadUrl
-      link.download = `PlagiarismReport-${assignmentId}.pdf` // Nombre del archivo
-      document.body.appendChild(link)
-      link.click()
-
-      // Limpiar el DOM después de la descarga
-      document.body.removeChild(link)
-      window.URL.revokeObjectURL(downloadUrl)
-    } catch (error) {
-      console.error('Error analyzing assignment:', error)
-      throw error
-    }
-  }
-
-  /**
-   * Obtiene todas las asignaciones y envíos asociados a un curso y estudiante.
-   *
-   * @param {string} studentId - El ID del estudiante.
-   * @param {string} courseId - El ID del curso.
-   * @returns {Promise<AssignmentSubmissionResponse[]>} - Una lista de respuestas que incluyen asignaciones y envíos.
-   * @throws {Error} - Lanza un error si ocurre algún problema al obtener los datos.
-   */
-  static async getAllByCourseForStudent(
-    studentId: string,
-    courseId: string
-  ): Promise<Assignment[]> {
-    try {
-      const response = await axiosInstance.get(`${API_ENDPOINT}/GetAllByCourseForStudent`, {
-        params: { studentId, courseId }
-      })
-      return response.data
-    } catch (error) {
-      console.error('Error getting assignments and submissions:', error)
-      throw error
-    }
-  }
-
-
-  /**
-   * Analiza una asignación usando Dolos.
-   *
-   * @param {string} assignmentId - El ID de la asignación que se va a analizar.
-   * @returns {Promise<any>} - Una promesa que se resuelve con la respuesta del servidor en caso de éxito.
-   * @throws {Error} - Lanza un error si ocurre algún problema durante el análisis.
-   */
   static async analyzeWithDolos(assignmentId: string, email: string): Promise<any> {
     try {
-      const response = await axiosInstance.post(
-        `${API_ENDPOINT}/DolosAnalysisCustomEmail`,
-        null,
-        {
-          params: {
-            assignmentId,
-            email,
-          },
-        }
-      );
-      return response.data;
+      return await OpenAPIAssignmentService.postApiAssignmentDolosAnalysisCustomEmail({
+        assignmentId,
+        email
+      })
     } catch (error) {
-      console.error('Error analyzing with Dolos:', error);
-      throw error;
+      throw AssignmentService.normalizeError(error)
     }
   }
-  
 
+  static async analyzeAssignment(assignmentId: string): Promise<void> {
+    const url = `/api/Assignment/Analyze?assignmentId=${assignmentId}`
+    const response = await axiosInstance.post(url, {}, { responseType: 'blob' })
+    const pdfBlob = new Blob([response.data], { type: 'application/pdf' })
+    const downloadUrl = window.URL.createObjectURL(pdfBlob)
+    const link = document.createElement('a')
+    link.href = downloadUrl
+    link.download = `PlagiarismReport-${assignmentId}.pdf`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(downloadUrl)
+  }
+
+  private static normalizeError(error: any): any {
+    if (error instanceof ApiError) {
+      return {
+        response: {
+          status: error.status,
+          data: error.body
+        }
+      }
+    }
+    return error
+  }
 }
 
 export default AssignmentService

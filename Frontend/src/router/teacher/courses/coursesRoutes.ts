@@ -1,4 +1,5 @@
 import CoursesView from "@/views/Teacher/Courses/CoursesView.vue";
+import ArchivedCoursesView from "@/views/Teacher/Courses/ArchivedCoursesView.vue";
 import AssigmentView from "@/views/Teacher/Assigment/AssigmentView.vue";
 import SubmissionsView from "@/views/Teacher/Submissions/SubmissionsView.vue";
 
@@ -9,6 +10,16 @@ const coursesRoutes = [
     component: CoursesView,
     meta: {
       title: 'Courses',
+      requiresAuth: true,
+      allowedRoles: ['teacher']
+    },
+  },
+  {
+    path: '/teacher/archived-courses',
+    name: 'teacherArchivedCourses',
+    component: ArchivedCoursesView,
+    meta: {
+      title: 'Archived Courses',
       requiresAuth: true,
       allowedRoles: ['teacher']
     },

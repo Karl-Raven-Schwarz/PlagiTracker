@@ -1,12 +1,8 @@
 import axios from 'axios';
-import { useUserStore } from '@/stores/userStore'; // Import your Pinia store
 import router from '@/router/index';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-// Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: backendUrl, // Base URL for the API
+  baseURL: '',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -14,41 +10,32 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const userStore = useUserStore(); 
-
-    const token = userStore.getToken;
-    //console.log(token)
-    if (token) {
+    const token = localStorage.getItem('token');
+    if (token && token !== 'undefined') {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => {
-    // Handle request errors
     return Promise.reject(error);
   }
 );
 
-// Interceptor to handle errors in the response
 axiosInstance.interceptors.response.use(
   (response) => {
-    return response; // Simply return the response if successful
+    return response;
   },
   (error) => {
     const statusCode = error.response ? error.response.status : null;
 
-    // Handle server errors (5xx)
     if (statusCode >= 500) {
-      router.push({ name: 'ServerError' }); // Redirect to server error page
+      router.push({ name: 'ServerError' });
     }
 
-    // Handle network errors or connection issues
     if (error.message === 'Network Error' || error.code === 'ERR_CONNECTION_REFUSED') {
-      router.push({ name: 'ServerError' }); // Redirect to server error page
+      router.push({ name: 'ServerError' });
     }
 
-    // Return a rejected promise to handle the error elsewhere
     return Promise.reject(error);
   }
 );

@@ -70,13 +70,13 @@ const copyLinkToClipboard = async (courseId: string) => {
 
 <template>
   <!-- Usa router-link para hacer que toda la tarjeta sea clicable -->
-  <div class="max-w-sm overflow-hidden border border-stroke shadow-lg bg-card text-card-foreground">
+  <div class="overflow-hidden border border-stroke shadow-lg bg-card text-card-foreground">
     <router-link :to="`/teacher/assigments/${props.course.id}`" class="block">
       <div class="bg-accent p-4">
-        <h2 class="text-lg font-bold truncate" style="max-width: 100%">
+        <h2 class="text-lg font-bold" style="max-width: 100%">
           {{ props.course.name }}
         </h2>
-        <p class="text-sm text-muted-foreground">{{ props.course.id }}</p>
+        <p class="text-sm text-muted-foreground">{{ props.course.createdAt }}</p>
       </div>
     </router-link>
 

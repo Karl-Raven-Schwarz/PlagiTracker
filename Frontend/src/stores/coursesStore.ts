@@ -9,24 +9,17 @@ export const useCoursesStore = defineStore('coursesStore', () => {
   const isLoading = ref(false)
   const errorMessage = ref('')
 
-  // Obtener los cursos del profesor
-  const fetchCoursesByTeacher = async () => {
+  const fetchCoursesByTeacher = async (archived: boolean = false) => {
     const userStore = useUserStore()
     const user = userStore.getUser
-    // Reset courses and error message at the start of the fetch
-    courses.value = [] // Clear the courses before fetching new ones
-    errorMessage.value = '' // Clear any previous error message
+    courses.value = []
+    errorMessage.value = ''
     if (user && user.id) {
       try {
         isLoading.value = true
         errorMessage.value = ''
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        const coursesData = await CourseService.getAllByTeacher(user.id)
-        courses.value = coursesData
-
-        courses.value = coursesData.filter(course => course.isEnabled && !course.isArchived)
-
-
+        const coursesData = await CourseService.getAllByTeacher(archived)
+        courses.value = coursesData.data ?? []
       } catch (error) {
         console.error('Error fetching courses:', error)
         errorMessage.value = 'Failed to load courses'
