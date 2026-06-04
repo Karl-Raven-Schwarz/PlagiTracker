@@ -1,78 +1,67 @@
 <script setup lang="ts">
-import type { Course } from '@/types/Course'
-import Swal from 'sweetalert2' // Importa SweetAlert2
-import EnrollmentService from '@/services/EnrollmentService';
-import { useUserStore } from '@/stores/userStore';
-
-const userStore = useUserStore();
-
-const user = userStore.getUser; // Obtener el usuario desde el store
+import Swal from 'sweetalert2'
+import EnrollmentService from '@/services/EnrollmentService'
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps<{
-  course: Course
+  course: any
 }>()
 
-console.log(props.course)
+const emit = defineEmits<{
+  (event: 'course-left'): void
+}>()
 
-// Función para manejar la eliminación del curso
-const handleDelete = async (courseId: string, studentId: string) => {
+const userStore = useUserStore()
+
+const handleLeave = async () => {
   const { isConfirmed } = await Swal.fire({
     title: 'Are you sure?',
-    text: "You won't be able to recover this enrollment!",
+    text: 'You will leave this course.',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: 'Yes, leave it!',
     cancelButtonText: 'Cancel'
-  });
-
+  })
 
   if (isConfirmed) {
     try {
-      await EnrollmentService.deleteEnrollment(courseId, studentId)
-      Swal.fire('Deleted!', 'Your enrollment has been deleted.', 'success');
-      console.log('Course deleted:', courseId)
-      // Opcional: redirige o actualiza la vista después de eliminar
+      const studentId = userStore.getUser?.id
+      await EnrollmentService.deleteEnrollment(props.course.id, studentId)
+      Swal.fire('Left!', 'You have left the course.', 'success')
+      emit('course-left')
     } catch (error) {
-      console.error('Error deleting course:', error)
-      Swal.fire('Error!', 'There was a problem deleting your enrollment.', 'error');
+      console.error('Error leaving course:', error)
+      Swal.fire('Error!', 'There was a problem leaving the course.', 'error')
     }
   }
 }
 </script>
 
 <template>
-  <!-- Usa router-link para hacer que toda la tarjeta sea clicable -->
-  <div class="max-w-sm overflow-hidden border border-stroke shadow-lg bg-card text-card-foreground">
+  <div class="max-w-md overflow-hidden border border-stroke shadow-lg bg-card text-card-foreground">
     <router-link :to="`/student/assigments/${props.course.id}`" class="block">
       <div class="bg-accent p-4">
-        <h2 class="text-lg font-bold truncate" style="max-width: 100%">
+        <h2 class="text-lg font-bold truncate">
           {{ props.course.name }}
         </h2>
-        <p class="text-sm text-muted-foreground">PlagiTracker</p>
+        <p class="text-sm text-muted-foreground">
+          {{ props.course.teacher?.firstName }} {{ props.course.teacher?.lastName }}
+        </p>
       </div>
     </router-link>
 
-    <div class="flex items-center bg-white dark:bg-boxdark justify-between p-4">
-      <div
-        class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold"
+    <div class="flex items-center bg-white dark:bg-boxdark justify-end p-4">
+      <button
+        @click="handleLeave"
+        aria-label="Leave Course"
+        class="text-muted hover:text-red transition-colors duration-200"
       >
-        S
-      </div>
-
-      <div class="flex space-x-2">
-      <!-- Botón de borrar -->
-      <p class="text-sm text-muted-foreground">Assignments: {{ props.course.taskCount }}</p>
-
-     
-
-      
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
+        </svg>
+      </button>
     </div>
-
-    </div>
-
-   
   </div>
-  <!-- Card Item End -->
 </template>

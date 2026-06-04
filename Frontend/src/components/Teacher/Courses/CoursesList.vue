@@ -30,7 +30,7 @@ onMounted(() => {
   </div>
 
   <!-- List of courses -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
     <!-- Iterate over the list of courses and show a CourseCard for each one -->
     <CourseCard
       v-for="course in coursesStore.courses"

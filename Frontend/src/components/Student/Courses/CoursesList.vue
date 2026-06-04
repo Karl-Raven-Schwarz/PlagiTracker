@@ -1,56 +1,42 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useUserStore } from '@/stores/userStore';
-import CourseCard from './CourseCard.vue';
-import CourseService from '@/services/CourseService';
-import type { Course } from '@/types/Course';
-import SubmissionService from '@/services/SubmissionService';
+import { ref, onMounted } from 'vue'
+import CourseCard from './CourseCard.vue'
+import CourseService from '@/services/CourseService'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
-// Estado reactivo para almacenar los cursos
-const courses = ref<Course[]>([]); 
+const enrollments = ref<any[]>([])
+const isLoading = ref(false)
 
-// Obtener el store del usuario
-const userStore = useUserStore();
-
-// Método para obtener los cursos del profesor
 const fetchCourses = async () => {
-  const user = userStore.getUser; // Obtener el usuario desde el store
-
-  // Verifica que el usuario esté autenticado y tenga un ID
-  if (user && user.id) {
-    try {
-      const response= await CourseService.getCoursesByStudent(user.id); 
-
-      console.log(response)
-
-      courses.value = response; // Llama al servicio para obtener cursos
-      courses.value = response.map(item => item.course);  
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
-
-    console.log(courses)
-  } else {
-    console.error('User not authenticated or ID not available.');
+  try {
+    isLoading.value = true
+    const response = await CourseService.getCoursesByStudent()
+    enrollments.value = response.data ?? []
+  } catch (error) {
+    console.error('Error fetching courses:', error)
+  } finally {
+    isLoading.value = false
   }
-};
+}
 
-
-
-
-// Llama a fetchCourses al montar el componente
 onMounted(() => {
-  fetchCourses();
-});
+  fetchCourses()
+})
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-    <!-- Iteramos sobre la lista de cursos y mostramos un CourseCard para cada uno -->
+  <LoadingSpinner :isLoading="isLoading" />
+
+  <div v-if="!isLoading && enrollments.length === 0" class="text-gray-500 dark:text-gray-400 text-center mt-6">
+    No courses available.
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
     <CourseCard
-      v-for="course in courses"
-      :key="course.id"
-      :course="course"
+      v-for="enrollment in enrollments"
+      :key="enrollment.course.id"
+      :course="enrollment.course"
+      @course-left="fetchCourses"
     />
   </div>
 </template>
