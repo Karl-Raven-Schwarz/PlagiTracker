@@ -1,27 +1,27 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-      <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Login</h2>
+  <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-boxdark-2">
+    <div class="bg-white dark:bg-boxdark p-8 rounded-lg shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-white mb-6">Login</h2>
       <form @submit.prevent="handleSubmit" class="space-y-6">
         <div class="form-group">
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
           <input
             v-model="username"
             id="username"
             type="text"
             required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-form-strokedark dark:bg-form-input dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 
         <div class="form-group">
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
           <input
             v-model="password"
             id="password"
             type="password"
             required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-form-strokedark dark:bg-form-input dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 

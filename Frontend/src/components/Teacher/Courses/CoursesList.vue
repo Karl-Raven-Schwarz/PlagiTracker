@@ -25,7 +25,7 @@ onMounted(() => {
 
 
   <!-- Show message if no courses are available -->
-  <div v-if="!coursesStore.isLoading && coursesStore.courses.length === 0" class="text-gray-500 text-center mt-6">
+  <div v-if="!coursesStore.isLoading && coursesStore.courses.length === 0" class="text-gray-500 dark:text-gray-400 text-center mt-6">
     No courses available.
   </div>
 

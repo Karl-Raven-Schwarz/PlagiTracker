@@ -24,7 +24,7 @@ const isOverdue = computed(() => {
   <div
     :class="[
       'flex items-center p-4 shadow-md cursor-pointer',
-      { 'bg-red': isOverdue, 'bg-white': !isOverdue }
+      { 'bg-red': isOverdue, 'bg-white dark:bg-boxdark': !isOverdue }
     ]"
   >
     <!-- Icono -->

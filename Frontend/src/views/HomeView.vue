@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col items-center justify-center h-screen">
-      <h1 class="text-3xl font-bold mb-8">Welcome to Pragitacker</h1>
+    <div class="flex flex-col items-center justify-center h-screen bg-whiten dark:bg-boxdark-2">
+      <h1 class="text-3xl font-bold mb-8 text-black dark:text-white">Welcome to Pragitacker</h1>
       <div class="flex space-x-4">
         <router-link to="/student/auth/login">
           <button class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition ease-in-out duration-300">

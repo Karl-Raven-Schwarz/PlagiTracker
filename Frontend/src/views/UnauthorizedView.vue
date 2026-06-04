@@ -4,10 +4,10 @@ import FullScreenLayout from '@/layouts/FullScreenLayout.vue'
 
 <template>
   <FullScreenLayout>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-boxdark-2">
       <div class="text-center">
-        <h1 class="text-4xl font-bold text-red-600">Access Denied</h1>
-        <p class="mt-4 text-lg text-gray-700">
+        <h1 class="text-4xl font-bold text-red-600 dark:text-red-400">Access Denied</h1>
+        <p class="mt-4 text-lg text-gray-700 dark:text-gray-300">
           You do not have sufficient permissions to access this page.
         </p>
         <router-link

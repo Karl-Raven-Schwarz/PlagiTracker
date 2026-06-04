@@ -54,7 +54,7 @@ const handleDelete = async (courseId: string, studentId: string) => {
       </div>
     </router-link>
 
-    <div class="flex items-center bg-white justify-between p-4">
+    <div class="flex items-center bg-white dark:bg-boxdark justify-between p-4">
       <div
         class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold"
       >

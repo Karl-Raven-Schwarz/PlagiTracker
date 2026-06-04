@@ -1,25 +1,25 @@
 <template>
-  <div class="border p-4 rounded mb-4">
-    <label class="block mb-2">Class Name</label>
+  <div class="border dark:border-strokedark dark:bg-boxdark p-4 rounded mb-4">
+    <label class="block mb-2 dark:text-white">Class Name</label>
     <input
       type="text"
       v-model="classData.name"
-      class="border rounded w-full px-3 py-2"
+      class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
       required
     />
 
-    <label class="block mb-2 mt-4">Class Description</label>
+    <label class="block mb-2 mt-4 dark:text-white">Class Description</label>
     <textarea
       v-model="classData.description"
-      class="border rounded w-full px-3 py-2"
+      class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
       rows="3"
     />
 
-    <label class="block mb-2 mt-4">Child Classes</label>
+    <label class="block mb-2 mt-4 dark:text-white">Child Classes</label>
     <input
       type="text"
       v-model="classData.childClasses"
-      class="border rounded w-full px-3 py-2"
+      class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
       placeholder="Comma separated list of child classes"
     />
 
@@ -33,27 +33,27 @@
     </button>
 
     <!-- Methods Section -->
-    <div v-for="(method, methodIndex) in classData.methods" :key="methodIndex" class="border p-2 rounded mb-2">
-      <label class="block mb-1">Method Name</label>
+    <div v-for="(method, methodIndex) in classData.methods" :key="methodIndex" class="border dark:border-strokedark p-2 rounded mb-2">
+      <label class="block mb-1 dark:text-white">Method Name</label>
       <input
         type="text"
         v-model="method.name"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
         required
       />
 
-      <label class="block mb-1 mt-2">Method Description</label>
+      <label class="block mb-1 mt-2 dark:text-white">Method Description</label>
       <input
         type="text"
         v-model="method.description"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
       />
 
-      <label class="block mb-1 mt-2">Method Type</label>
+      <label class="block mb-1 mt-2 dark:text-white">Method Type</label>
       <input
         type="text"
         v-model="method.type"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
       />
 
       <!-- Parameters Section -->
@@ -61,13 +61,13 @@
         <input
           type="text"
           v-model="param.name"
-          class="border rounded w-full px-2 py-1 mb-1"
+          class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1 mb-1"
           placeholder="Parameter Name"
         />
         <input
           type="text"
           v-model="param.type"
-          class="border rounded w-full px-2 py-1"
+          class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
           placeholder="Parameter Type"
         />
       </div>

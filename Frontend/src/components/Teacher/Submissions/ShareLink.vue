@@ -10,12 +10,12 @@
 
         <!-- Email Input for sharing URL -->
         <div class="mt-4">
-          <label for="email" class="block mb-2">Email Address</label>
+          <label for="email" class="block mb-2 dark:text-white">Email Address</label>
           <input
             type="email"
             id="email"
             v-model="email"
-            class="border rounded w-full px-3 py-2"
+            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
             required
             placeholder="Enter email to share the report"
           />

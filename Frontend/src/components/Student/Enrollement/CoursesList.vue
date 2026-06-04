@@ -91,14 +91,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-sm mx-auto mt-8 p-4 bg-white border border-gray-300 rounded-lg shadow-md">
-    <h2 class="text-lg font-bold mb-4">Enroll in a Course</h2>
+  <div class="max-w-sm mx-auto mt-8 p-4 bg-white dark:bg-boxdark border border-gray-300 dark:border-strokedark rounded-lg shadow-md">
+    <h2 class="text-lg font-bold mb-4 text-black dark:text-white">Enroll in a Course</h2>
 
     <!-- Formulario de inscripción -->
     <form @submit.prevent="enrollInCourse">
       <!-- Campo de entrada para el ID del curso -->
       <div class="mb-4">
-        <label for="courseId" class="block text-sm font-medium text-gray-700 mb-2">Course ID:</label>
+        <label for="courseId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Course ID:</label>
         <input
           id="courseId"
           v-model="courseId"
@@ -106,7 +106,7 @@ onMounted(() => {
           maxlength="50"
 
           type="text"
-          class="border border-gray-300 rounded-md p-2 w-full"
+          class="border border-gray-300 dark:border-form-strokedark dark:bg-form-input dark:text-white rounded-md p-2 w-full"
           placeholder="Enter course ID"
           required
         />

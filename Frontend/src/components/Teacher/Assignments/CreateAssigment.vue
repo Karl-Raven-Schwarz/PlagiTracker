@@ -8,44 +8,44 @@
       <form @submit.prevent="handleSubmit">
         <!-- Assignment Title -->
         <div>
-          <label for="assignmentTitle" class="block mb-2">Assignment Title</label>
+          <label for="assignmentTitle" class="block mb-2 dark:text-white">Assignment Title</label>
           <input
             type="text"
             id="assignmentTitle"
             v-model="assignment.title"
-            class="border rounded w-full px-3 py-2"
+            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
             required
           />
         </div>
 
         <!-- Assignment Description -->
         <div class="mt-4">
-          <label for="assignmentDescription" class="block mb-2">Assignment Description</label>
+          <label for="assignmentDescription" class="block mb-2 dark:text-white">Assignment Description</label>
           <textarea
             id="assignmentDescription"
             v-model="assignment.description"
-            class="border rounded w-full px-3 py-2"
+            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
             rows="4"
           />
         </div>
 
         <!-- Submission Date -->
         <div class="mt-4">
-          <label for="submissionDate" class="block mb-2">Submission Date</label>
+          <label for="submissionDate" class="block mb-2 dark:text-white">Submission Date</label>
           <input
             type="datetime-local"
             id="submissionDate"
             v-model="formattedSubmissionDate"
             :min="minDate"
             :max="maxDate"
-            class="border rounded w-full px-3 py-2"
+            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
             required
           />
         </div>
 
         <!-- Exercises Section -->
         <div class="mt-6">
-          <h4 class="text-lg font-semibold">Exercises</h4>
+          <h4 class="text-lg font-semibold dark:text-white">Exercises</h4>
           <button
             type="button"
             class="mt-2 mb-4 bg-green-500 text-white px-3 py-2 rounded"
@@ -55,29 +55,29 @@
           </button>
 
           <div v-for="(exercise, exerciseIndex) in exercises" :key="exerciseIndex" class="mb-4">
-            <div class="border p-4 rounded mb-4">
-              <label class="block mb-2">Exercise Name</label>
+            <div class="border dark:border-strokedark dark:bg-boxdark p-4 rounded mb-4">
+              <label class="block mb-2 dark:text-white">Exercise Name</label>
               <input
                 type="text"
                 v-model="exercise.name"
-                class="border rounded w-full px-3 py-2"
+                class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
                 required
               />
 
-              <label class="block mb-2 mt-4">Exercise Description</label>
+              <label class="block mb-2 mt-4 dark:text-white">Exercise Description</label>
               <textarea
                 v-model="exercise.description"
-                class="border rounded w-full px-3 py-2"
+                class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
                 rows="3"
               />
 
-              <label class="block mb-2 mt-4">Has Body?</label>
+              <label class="block mb-2 mt-4 dark:text-white">Has Body?</label>
               <input type="checkbox" v-model="exercise.haveBody" class="mr-2" />
               <span>{{ exercise.haveBody ? 'Yes' : 'No' }}</span>
 
               <!-- Classes Section -->
               <div class="mt-4">
-                <h5 class="font-semibold">Classes</h5>
+                <h5 class="font-semibold dark:text-white">Classes</h5>
                 <button
                   type="button"
                   class="mt-2 mb-2 bg-blue-500 text-white px-3 py-2 rounded"
@@ -91,24 +91,24 @@
                   :key="classIndex"
                   class="p-2 mb-2"
                 >
-                  <label class="block mb-1">Class Name</label>
+                  <label class="block mb-1 dark:text-white">Class Name</label>
                   <input
                     type="text"
                     v-model="cls.name"
-                    class="border rounded w-full px-2 py-1"
+                    class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                     required
                   />
 
-                  <label class="block mb-1 mt-2">Class Description</label>
+                  <label class="block mb-1 mt-2 dark:text-white">Class Description</label>
                   <input
                     type="text"
                     v-model="cls.description"
-                    class="border rounded w-full px-2 py-1"
+                    class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                   />
 
                   <!-- Methods Section -->
                   <div class="mt-2">
-                    <h6 class="font-semibold">Methods</h6>
+                    <h6 class="font-semibold dark:text-white">Methods</h6>
                     <button
                       type="button"
                       class="mt-1 mb-2 bg-purple-500 text-white px-2 py-1 rounded"
@@ -122,31 +122,31 @@
                       :key="methodIndex"
                       class="p-2 mb-1"
                     >
-                      <label class="block mb-1">Method Name</label>
+                      <label class="block mb-1 dark:text-white">Method Name</label>
                       <input
                         type="text"
                         v-model="method.name"
-                        class="border rounded w-full px-2 py-1"
+                        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                         required
                       />
 
-                      <label class="block mb-1 mt-2">Method Type</label>
+                      <label class="block mb-1 mt-2 dark:text-white">Method Type</label>
                       <input
                         type="text"
                         v-model="method.type"
-                        class="border rounded w-full px-2 py-1"
+                        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                       />
 
-                      <label class="block mb-1 mt-2">Method Description</label>
+                      <label class="block mb-1 mt-2 dark:text-white">Method Description</label>
                       <textarea
                         v-model="method.description"
-                        class="border rounded w-full px-2 py-1"
+                        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                         rows="2"
                       ></textarea>
 
                       <!-- Parameters Section -->
                       <div class="mt-2">
-                        <h6 class="font-semibold">Parameters</h6>
+                        <h6 class="font-semibold dark:text-white">Parameters</h6>
                         <button
                           type="button"
                           class="mt-1 mb-2 bg-teal-500 text-white px-2 py-1 rounded"
@@ -160,25 +160,25 @@
                           :key="paramIndex"
                           class="p-2 mb-1"
                         >
-                          <label class="block mb-1">Parameter Name</label>
+                          <label class="block mb-1 dark:text-white">Parameter Name</label>
                           <input
                             type="text"
                             v-model="param.name"
-                            class="border rounded w-full px-2 py-1"
+                            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                             required
                           />
 
-                          <label class="block mb-1 mt-2">Parameter Type</label>
+                          <label class="block mb-1 mt-2 dark:text-white">Parameter Type</label>
                           <input
                             type="text"
                             v-model="param.type"
-                            class="border rounded w-full px-2 py-1"
+                            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                           />
 
-                          <label class="block mb-1 mt-2">Parameter Description</label>
+                          <label class="block mb-1 mt-2 dark:text-white">Parameter Description</label>
                           <textarea
                             v-model="param.description"
-                            class="border rounded w-full px-2 py-1"
+                            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                             rows="2"
                           ></textarea>
                         </div>
@@ -186,7 +186,7 @@
 
                       <!-- Variables Section -->
                       <div class="mt-2">
-                        <h6 class="font-semibold">Variables</h6>
+                        <h6 class="font-semibold dark:text-white">Variables</h6>
                         <button
                           type="button"
                           class="mt-1 mb-2 bg-orange-500 text-white px-2 py-1 rounded"
@@ -200,19 +200,19 @@
                           :key="varIndex"
                           class="p-2 mb-1"
                         >
-                          <label class="block mb-1">Variable Name</label>
+                          <label class="block mb-1 dark:text-white">Variable Name</label>
                           <input
                             type="text"
                             v-model="variable.name"
-                            class="border rounded w-full px-2 py-1"
+                            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                             required
                           />
 
-                          <label class="block mb-1 mt-2">Variable Type</label>
+                          <label class="block mb-1 mt-2 dark:text-white">Variable Type</label>
                           <input
                             type="text"
                             v-model="variable.type"
-                            class="border rounded w-full px-2 py-1"
+                            class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
                           />
                         </div>
                       </div>

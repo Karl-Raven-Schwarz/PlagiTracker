@@ -1,22 +1,22 @@
 <template>
   <div class="mb-4">
-    <div class="border p-4 rounded mb-4">
-      <label class="block mb-2">Exercise Name</label>
+    <div class="border dark:border-strokedark dark:bg-boxdark p-4 rounded mb-4">
+      <label class="block mb-2 dark:text-white">Exercise Name</label>
       <input
         type="text"
         v-model="exercise.name"
-        class="border rounded w-full px-3 py-2"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
         required
       />
 
-      <label class="block mb-2 mt-4">Exercise Description</label>
+      <label class="block mb-2 mt-4 dark:text-white">Exercise Description</label>
       <textarea
         v-model="exercise.description"
-        class="border rounded w-full px-3 py-2"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
         rows="3"
       />
 
-      <label class="block mb-2 mt-4">Has Body?</label>
+      <label class="block mb-2 mt-4 dark:text-white">Has Body?</label>
       <input
         type="checkbox"
         v-model="exercise.haveBody"

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2">
-    <h6 class="font-semibold">Methods</h6>
+    <h6 class="font-semibold dark:text-white">Methods</h6>
     <button
       type="button"
       class="mt-1 mb-2 bg-purple-500 text-white px-2 py-1 rounded"
@@ -9,26 +9,26 @@
       Add Method
     </button>
 
-    <div v-for="(method, methodIndex) in classData.methods" :key="methodIndex" class="border p-2 rounded mb-1">
-      <label class="block mb-1">Method Name</label>
+    <div v-for="(method, methodIndex) in classData.methods" :key="methodIndex" class="border dark:border-strokedark p-2 rounded mb-1">
+      <label class="block mb-1 dark:text-white">Method Name</label>
       <input
         type="text"
         v-model="method.name"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
         required
       />
 
-      <label class="block mb-1 mt-2">Method Type</label>
+      <label class="block mb-1 mt-2 dark:text-white">Method Type</label>
       <input
         type="text"
         v-model="method.type"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
       />
 
-      <label class="block mb-1 mt-2">Method Description</label>
+      <label class="block mb-1 mt-2 dark:text-white">Method Description</label>
       <textarea
         v-model="method.description"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
         rows="2"
       ></textarea>
 

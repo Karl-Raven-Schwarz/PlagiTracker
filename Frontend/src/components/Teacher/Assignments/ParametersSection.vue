@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2">
-    <h6 class="font-semibold">Parameters</h6>
+    <h6 class="font-semibold dark:text-white">Parameters</h6>
     <button
       type="button"
       class="mt-1 mb-2 bg-teal-500 text-white px-2 py-1 rounded"
@@ -9,26 +9,26 @@
       Add Parameter
     </button>
 
-    <div v-for="(param, paramIndex) in methodData.parameters" :key="paramIndex" class="border p-2 rounded mb-1">
-      <label class="block mb-1">Parameter Name</label>
+    <div v-for="(param, paramIndex) in methodData.parameters" :key="paramIndex" class="border dark:border-strokedark p-2 rounded mb-1">
+      <label class="block mb-1 dark:text-white">Parameter Name</label>
       <input
         type="text"
         v-model="param.name"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
         required
       />
 
-      <label class="block mb-1 mt-2">Parameter Type</label>
+      <label class="block mb-1 mt-2 dark:text-white">Parameter Type</label>
       <input
         type="text"
         v-model="param.type"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
       />
 
-      <label class="block mb-1 mt-2">Parameter Description</label>
+      <label class="block mb-1 mt-2 dark:text-white">Parameter Description</label>
       <textarea
         v-model="param.description"
-        class="border rounded w-full px-2 py-1"
+        class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-2 py-1"
         rows="2"
       ></textarea>
     </div>

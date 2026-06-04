@@ -7,7 +7,7 @@
     link="/student/courses"
   />
 
-  <div v-else class="flex flex-col p-4 bg-white text-foreground rounded-lg shadow-md">
+  <div v-else class="flex flex-col p-4 bg-white dark:bg-boxdark text-foreground rounded-lg shadow-md">
     <div>
       <div class="flex items-center">
         <img
@@ -16,22 +16,22 @@
           src="https://openui.fly.dev/openui/24x24.svg?text=📄"
           class="mr-2"
         />
-        <h2 class="text-xl font-bold">{{ assignmentTitle }}</h2>
+        <h2 class="text-xl font-bold text-black dark:text-white">{{ assignmentTitle }}</h2>
       </div>
-      <h3 class="font-semibold mt-4">Your Work</h3>
-      <p class="text-sm text-zinc-600 mt-2">{{ assignmentDescription }}</p>
-      <p class="text-sm text-zinc-600 mt-2">
+      <h3 class="font-semibold mt-4 text-black dark:text-white">Your Work</h3>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-2">{{ assignmentDescription }}</p>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
         <strong>Due Date:</strong> {{ assignmentSubmissionDate }}
       </p>
       <div class="mt-2">
-        <label for="url-input" class="font-semibold text-sm mb-2 block">Add URL of the work</label>
+        <label for="url-input" class="font-semibold text-sm mb-2 block text-black dark:text-white">Add URL of the work</label>
         <input
           id="url-input"
           type="url"
           v-model="submissionUrl"
           :disabled="isSubmissionClosed"
           placeholder="https://www.codiva.io/"
-          class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full p-2 border border-gray-300 dark:border-form-strokedark dark:bg-form-input dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       <div class="flex items-center mt-4">

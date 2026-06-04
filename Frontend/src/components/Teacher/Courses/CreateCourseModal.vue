@@ -6,13 +6,13 @@
         <h3 class="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">Create Course</h3>
         <form @submit.prevent="handleSubmit">
           <div>
-            <label for="courseName" class="block mb-2">Course Name</label>
+            <label for="courseName" class="block mb-2 dark:text-white">Course Name</label>
             <input
               type="text"
               id="courseName"
               v-model="course.name"
               maxlength="40"
-              class="border rounded w-full px-3 py-2"
+              class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
               required
             />
           </div>

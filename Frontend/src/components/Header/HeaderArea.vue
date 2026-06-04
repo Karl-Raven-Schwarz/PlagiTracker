@@ -108,6 +108,10 @@ const sidebarStore = useSidebarStore()
           <!-- Chat Notification Area -->
         </ul>
 
+        <!-- Dark Mode Toggle -->
+        <DarkModeSwitcher />
+        <!-- Dark Mode Toggle -->
+
         <!-- User Area -->
         <DropdownUser />
         <!-- User Area -->

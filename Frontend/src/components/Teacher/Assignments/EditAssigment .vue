@@ -9,37 +9,37 @@
         <form @submit.prevent="handleSubmit">
           <!-- Assignment Title -->
           <div>
-            <label for="assignmentTitle" class="block mb-2">Assignment Title</label>
+            <label for="assignmentTitle" class="block mb-2 dark:text-white">Assignment Title</label>
             <input
               type="text"
               id="assignmentTitle"
               v-model="assignment.title"
-              class="border rounded w-full px-3 py-2"
+              class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
               required
             />
           </div>
 
           <!-- Assignment Description -->
           <div class="mt-4">
-            <label for="assignmentDescription" class="block mb-2">Assignment Description</label>
+            <label for="assignmentDescription" class="block mb-2 dark:text-white">Assignment Description</label>
             <textarea
               id="assignmentDescription"
               v-model="assignment.description"
-              class="border rounded w-full px-3 py-2"
+              class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
               rows="4"
             />
           </div>
 
           <!-- Submission Date -->
           <div class="mt-4">
-            <label for="submissionDate" class="block mb-2">Submission Date</label>
+            <label for="submissionDate" class="block mb-2 dark:text-white">Submission Date</label>
             <input
               type="datetime-local"
               id="submissionDate"
               v-model="formattedSubmissionDate"
                :min="minDate"
                 :max="maxDate"
-              class="border rounded w-full px-3 py-2"
+              class="border dark:border-form-strokedark dark:bg-form-input dark:text-white rounded w-full px-3 py-2"
               required
             />
           </div>
