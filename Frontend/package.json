@@ -11,7 +11,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "generate:api": "openapi --input swagger.json --output src/api-client --client axios --useOptions --exportServices true --exportModels true --exportSchemas false"
+    "generate:api": "node scripts/generate-api.mjs"
   },
   "dependencies": {
     "@noble/hashes": "^1.5.0",
