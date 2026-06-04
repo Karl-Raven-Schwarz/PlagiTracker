@@ -481,18 +481,7 @@ namespace PlagiTracker.Data.DataAccess
                     CreatedAt = DateTime.Parse("2024-11-18T13:30:52.604863-05:00").ToUniversalTime(),
                     UpdatedAt = MinDate
                 },
-                new Submission
-                {
-                    Id = Guid.Parse("9fd9c7a4-266a-4032-9ed2-4e03a02dfdf4"),
-                    Url = "https://onlinegdb.com/lgantTSY2",
-                    SubmissionDate = DateTime.Parse("2024-11-18T09:27:25.801-05:00").ToUniversalTime(),
-                    Grade = 0.0, Compiler = UrlCompilerType.OnlineGDB, UrlState = UrlState.Ok,
-                    StudentId = Guid.Parse("38141a4f-bc22-4514-8f9b-139a11b004b2"),
-                    AssignmentId = Guid.Parse("e4be8d12-8d5e-43d2-817c-b5987043404d"),
-                    IsEnabled = true,
-                    CreatedAt = DateTime.Parse("2024-11-18T13:33:47.981212-05:00").ToUniversalTime(),
-                    UpdatedAt = MinDate
-                },
+
                 new Submission
                 {
                     Id = Guid.Parse("22e13d14-0349-49df-9fc9-ff6c9bbb4bd8"),
@@ -614,16 +603,7 @@ namespace PlagiTracker.Data.DataAccess
                     CreatedAt = DateTime.Parse("2024-11-18T13:03:59.319042-05:00").ToUniversalTime(),
                     UpdatedAt = MinDate
                 },
-                new Code
-                {
-                    Id = Guid.Parse("59d052ff-7969-4ebb-911d-c9c6c5246a2e"),
-                    SubmissionId = Guid.Parse("9fd9c7a4-266a-4032-9ed2-4e03a02dfdf4"),
-                    FileName = "nCylinder.java",
-                    Content = "\nimport java.util.Scanner;\n\npublic class nCylinder {\n\n    public static void main(String[] args) {\n        Scanner s = new Scanner(System.in);\n        System.out.print(\"Enter the radius and length of a cylinder: \");\n        float r = s.nextFloat();\n        float l = s.nextFloat();\n        System.out.println(\"The area is \" + r * r * 3.14159);\n        System.out.println(\"The volume is \" + (r * r * 3.14159) * l);\n    }\n}\n",
-                    IsEnabled = true,
-                    CreatedAt = DateTime.Parse("2024-11-18T13:34:09.695207-05:00").ToUniversalTime(),
-                    UpdatedAt = MinDate
-                },
+
                 new Code
                 {
                     Id = Guid.Parse("c9281571-e24b-4c92-875b-b59e5ae88fdf"),

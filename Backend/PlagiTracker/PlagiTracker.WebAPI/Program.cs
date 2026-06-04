@@ -48,7 +48,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<PlagiTracker.Data.DataAccess.DataContext>(opt =>
 {
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection"),
+        npgsqlOptions => npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "plagi_tracker"));
 });
 
 builder.Services.AddScoped<HangFireServices>();
