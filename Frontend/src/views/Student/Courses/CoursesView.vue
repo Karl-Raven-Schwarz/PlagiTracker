@@ -6,7 +6,7 @@ import ButtonEvent from '@/components/Buttons/ButtonEvent.vue'
 import JoinCourseModal from '@/components/Student/Courses/JoinCourseModal.vue'
 import { ref } from 'vue'
 
-const pageTitle = ref('My Courses')
+const pageTitle = ref('Courses')
 const isModalOpen = ref(false)
 const coursesListKey = ref(0)
 

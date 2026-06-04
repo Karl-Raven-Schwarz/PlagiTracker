@@ -4,13 +4,17 @@ import CourseCard from './CourseCard.vue'
 import CourseService from '@/services/CourseService'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
+const props = defineProps<{
+  archived?: boolean
+}>()
+
 const enrollments = ref<any[]>([])
 const isLoading = ref(false)
 
 const fetchCourses = async () => {
   try {
     isLoading.value = true
-    const response = await CourseService.getCoursesByStudent()
+    const response = await CourseService.getCoursesByStudent(props.archived ?? false)
     enrollments.value = response.data ?? []
   } catch (error) {
     console.error('Error fetching courses:', error)
